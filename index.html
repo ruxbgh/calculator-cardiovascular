@@ -4,865 +4,896 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calculator Risc Cardiovascular</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f5f4f0;
-    --surface: #ffffff;
-    --surface2: #f9f8f5;
-    --border: #e2e0d8;
-    --text: #1a1a1a;
-    --text-muted: #7a7670;
-    --accent: #c0392b;
-    --accent2: #2471a3;
-    --green: #1e8449;
-    --yellow: #b7950b;
-    --red: #c0392b;
-    --green-bg: #eafaf1;
-    --yellow-bg: #fef9e7;
-    --red-bg: #fdedec;
-    --green-border: #a9dfbf;
-    --yellow-border: #f9e79f;
-    --red-border: #f1948a;
-    --shadow: 0 2px 16px rgba(0,0,0,0.08);
-    --radius: 14px;
-  }
+/* Fara dependente externe - totul inline */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  background: #f4f3ef;
+  color: #1c1c1c;
+  min-height: 100vh;
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px 80px;
-  }
+/* Header */
+.badge {
+  display: inline-block;
+  background: #fde8e8;
+  border: 1px solid #f5a5a5;
+  color: #b91c1c;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
 
-  .header {
-    text-align: center;
-    margin-bottom: 36px;
-    max-width: 580px;
-  }
+.main-title {
+  font-size: 42px;
+  font-weight: normal;
+  line-height: 1.15;
+  margin: 0 0 14px 0;
+  color: #1c1c1c;
+}
 
-  .header-badge {
-    display: inline-block;
-    background: var(--red-bg);
-    border: 1px solid var(--red-border);
-    color: var(--accent);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 100px;
-    margin-bottom: 16px;
-  }
+.main-title em {
+  font-style: italic;
+  color: #b91c1c;
+}
 
-  h1 {
-    font-family: 'Lora', serif;
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
-    line-height: 1.15;
-    color: var(--text);
-    margin-bottom: 12px;
-  }
+.subtitle {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  color: #6b6660;
+  line-height: 1.65;
+  margin: 0 0 36px 0;
+}
 
-  h1 em { font-style: italic; color: var(--accent); }
+/* Progress */
+.prog-wrap { margin-bottom: 20px; }
 
-  .subtitle {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.65;
-  }
+.prog-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #6b6660;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
 
-  .progress-wrap {
-    width: 100%;
-    max-width: 640px;
-    margin-bottom: 24px;
-  }
+.prog-track {
+  height: 5px;
+  background: #ddd9d0;
+  border-radius: 5px;
+  overflow: hidden;
+}
 
-  .progress-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1d6fa4, #b91c1c);
+  border-radius: 5px;
+  width: 0%;
+  transition: width 0.45s ease;
+}
 
-  .progress-track {
-    height: 5px;
-    background: var(--border);
-    border-radius: 5px;
-    overflow: hidden;
-  }
+/* Card */
+.card {
+  background: #ffffff;
+  border: 1px solid #ddd9d0;
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  margin-bottom: 16px;
+}
 
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent2), var(--accent));
-    border-radius: 5px;
-    transition: width 0.5s ease;
-    width: 0%;
-  }
+.q-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
 
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 32px;
-    max-width: 640px;
-    width: 100%;
-    box-shadow: var(--shadow);
-  }
+.q-num {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #9e9890;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
 
-  .q-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
+.q-emoji { font-size: 22px; line-height: 1; }
 
-  .q-num {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-muted);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
+.q-text {
+  font-size: 22px;
+  font-weight: normal;
+  line-height: 1.4;
+  color: #1c1c1c;
+  margin: 0 0 22px 0;
+}
 
-  .q-icon { font-size: 1.4rem; line-height: 1; }
+/* Options */
+.options { display: flex; flex-direction: column; gap: 9px; }
 
-  .q-text {
-    font-family: 'Lora', serif;
-    font-size: 1.18rem;
-    line-height: 1.45;
-    color: var(--text);
-    margin-bottom: 20px;
-  }
+.opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  background: #f9f8f4;
+  border: 2px solid #ddd9d0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: left;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #1c1c1c;
+}
 
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+.opt:hover { border-color: #1d6fa4; background: #eaf2fa; }
+.opt.sel   { border-color: #b91c1c; background: #fde8e8; }
 
-  .option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 13px 16px;
-    background: var(--surface2);
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-    font-size: 13.5px;
-    color: var(--text);
-    text-align: left;
-    width: 100%;
-    font-family: 'Inter', sans-serif;
-  }
+.radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #bbb;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .option:hover { border-color: var(--accent2); background: #eaf2fa; }
-  .option.selected { border-color: var(--accent); background: var(--red-bg); }
+.opt.sel .radio { border-color: #b91c1c; background: #b91c1c; }
 
-  .option-radio {
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-  }
+.radio-dot {
+  display: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
 
-  .option.selected .option-radio {
-    border-color: var(--accent);
-    background: var(--accent);
-  }
+.opt.sel .radio-dot { display: block; }
 
-  .option.selected .option-radio::after {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #fff;
-    display: block;
-  }
+.opt-label { flex: 1; }
 
-  .option-label { flex: 1; }
+.opt-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
 
-  .option-risk {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    padding: 3px 8px;
-    border-radius: 6px;
-    text-transform: uppercase;
-    flex-shrink: 0;
-  }
+.bl { background: #eafaf1; color: #1a7340; border: 1px solid #a3d9b5; }
+.bm { background: #fef9e7; color: #a0790a; border: 1px solid #f3e08a; }
+.bh { background: #fde8e8; color: #b91c1c; border: 1px solid #f5a5a5; }
 
-  .risk-low { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-  .risk-mod { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
-  .risk-high { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+/* Buttons */
+.nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
 
-  .nav-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 22px;
-  }
+.btn {
+  padding: 13px 22px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  font-family: Arial, sans-serif;
+  transition: opacity 0.15s, background 0.15s;
+}
 
-  .btn {
-    padding: 12px 24px;
-    border-radius: 9px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    border: none;
-    font-family: 'Inter', sans-serif;
-  }
+.btn-back {
+  background: #f0ede6;
+  color: #6b6660;
+  border: 2px solid #ddd9d0;
+}
+.btn-back:hover { background: #ddd9d0; }
 
-  .btn-back {
-    background: var(--surface2);
-    color: var(--text-muted);
-    border: 1.5px solid var(--border);
-    padding: 12px 18px;
-  }
-  .btn-back:hover { background: var(--border); color: var(--text); }
+.btn-next { background: #1d6fa4; color: #fff; flex: 1; }
+.btn-next:hover:not(:disabled) { background: #155880; }
+.btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
 
-  .btn-next { background: var(--accent2); color: #fff; flex: 1; }
-  .btn-next:hover:not(:disabled) { background: #1a5f87; }
-  .btn-next:disabled { opacity: 0.38; cursor: not-allowed; }
+.btn-submit { background: #b91c1c; color: #fff; flex: 1; }
+.btn-submit:hover:not(:disabled) { background: #961616; }
+.btn-submit:disabled { opacity: 0.35; cursor: not-allowed; }
 
-  .btn-submit { background: var(--accent); color: #fff; flex: 1; }
-  .btn-submit:hover:not(:disabled) { background: #a93226; }
-  .btn-submit:disabled { opacity: 0.38; cursor: not-allowed; }
+.hidden { display: none !important; }
 
-  .hidden { display: none !important; }
+.disc {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  color: #9e9890;
+  text-align: center;
+  line-height: 1.6;
+  margin-top: 8px;
+}
 
-  /* Results */
-  .results-wrap { max-width: 640px; width: 100%; }
+/* ===== RESULTS ===== */
+.score-card {
+  background: #fff;
+  border: 1px solid #ddd9d0;
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  text-align: center;
+  margin-bottom: 14px;
+}
 
-  .score-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 32px;
-    box-shadow: var(--shadow);
-    text-align: center;
-    margin-bottom: 14px;
-  }
+.ring-wrap {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  margin: 0 auto 18px;
+}
 
-  .score-ring {
-    position: relative;
-    width: 150px; height: 150px;
-    margin: 0 auto 16px;
-  }
+.ring-wrap svg { transform: rotate(-90deg); display: block; }
 
-  .score-ring svg { transform: rotate(-90deg); }
+.ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  .score-center {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-  }
+.ring-num {
+  font-size: 38px;
+  font-weight: normal;
+  line-height: 1;
+}
 
-  .score-num {
-    font-family: 'Lora', serif;
-    font-size: 2.3rem;
-    line-height: 1;
-  }
+.ring-lbl {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #9e9890;
+  font-weight: 700;
+  margin-top: 4px;
+}
 
-  .score-lbl {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: var(--text-muted);
-    font-weight: 600;
-    margin-top: 4px;
-  }
+.risk-pill {
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 100px;
+}
 
-  .risk-pill {
-    display: inline-block;
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 8px 22px;
-    border-radius: 100px;
-  }
+.p-low { background: #eafaf1; color: #1a7340; border: 2px solid #a3d9b5; }
+.p-mod { background: #fef9e7; color: #a0790a; border: 2px solid #f3e08a; }
+.p-high { background: #fde8e8; color: #b91c1c; border: 2px solid #f5a5a5; }
 
-  .pill-low { background: var(--green-bg); color: var(--green); border: 1.5px solid var(--green-border); }
-  .pill-mod { background: var(--yellow-bg); color: var(--yellow); border: 1.5px solid var(--yellow-border); }
-  .pill-high { background: var(--red-bg); color: var(--red); border: 1.5px solid var(--red-border); }
+/* Breakdown */
+.brk-card {
+  background: #fff;
+  border: 1px solid #ddd9d0;
+  border-radius: 16px;
+  padding: 28px 36px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  margin-bottom: 14px;
+}
 
-  .breakdown-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px 32px;
-    box-shadow: var(--shadow);
-    margin-bottom: 14px;
-  }
+.sec-title {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #9e9890;
+  margin-bottom: 16px;
+}
 
-  .section-title {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-  }
+.frow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
 
-  .factor-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
-    font-size: 13px;
-  }
+.fname {
+  width: 170px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #6b6660;
+  flex-shrink: 0;
+}
 
-  .factor-name { width: 170px; color: var(--text-muted); flex-shrink: 0; font-size: 12px; }
+.ftrack {
+  flex: 1;
+  height: 7px;
+  background: #ede9e0;
+  border-radius: 7px;
+  overflow: hidden;
+}
 
-  .factor-track {
-    flex: 1;
-    height: 7px;
-    background: var(--border);
-    border-radius: 7px;
-    overflow: hidden;
-  }
+.ffill {
+  height: 100%;
+  border-radius: 7px;
+  width: 0%;
+  transition: width 1s ease;
+}
 
-  .factor-fill {
-    height: 100%;
-    border-radius: 7px;
-    width: 0%;
-    transition: width 1s ease;
-  }
+.fval {
+  width: 36px;
+  text-align: right;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
 
-  .factor-val { width: 36px; text-align: right; font-weight: 600; font-size: 12px; }
+/* AI card */
+.ai-card {
+  background: #fff;
+  border: 1px solid #ddd9d0;
+  border-radius: 16px;
+  padding: 28px 36px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  margin-bottom: 14px;
+}
 
-  .ai-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px 32px;
-    box-shadow: var(--shadow);
-    margin-bottom: 14px;
-  }
+.ai-hdr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
 
-  .ai-header {
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 16px;
-  }
+.ai-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: #1d6fa4;
+  flex-shrink: 0;
+  animation: pulse 1.1s infinite;
+}
+.ai-dot.done { animation: none; background: #1a7340; }
 
-  .ai-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent2);
-    flex-shrink: 0;
-    animation: pulse 1.2s infinite;
-  }
-  .ai-dot.done { animation: none; background: var(--green); }
+.ai-title {
+  font-size: 18px;
+  font-weight: normal;
+  color: #1c1c1c;
+}
 
-  .ai-title {
-    font-family: 'Lora', serif;
-    font-size: 1.05rem;
-    color: var(--text);
-  }
+.ai-body {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #1c1c1c;
+}
+.ai-body.loading { color: #9e9890; font-style: italic; }
 
-  .ai-body {
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--text);
-  }
-  .ai-body.loading { color: var(--text-muted); font-style: italic; }
+.cursor {
+  display: inline-block;
+  width: 2px; height: 14px;
+  background: #1d6fa4;
+  vertical-align: middle;
+  margin-left: 1px;
+  animation: blink 0.7s step-end infinite;
+}
 
-  .cursor {
-    display: inline-block;
-    width: 2px; height: 14px;
-    background: var(--accent2);
-    vertical-align: middle;
-    margin-left: 1px;
-    animation: blink 0.7s step-end infinite;
-  }
+.btn-restart {
+  width: 100%;
+  padding: 14px;
+  background: #fff;
+  border: 2px solid #ddd9d0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #6b6660;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  transition: all 0.15s;
+  margin-bottom: 14px;
+}
+.btn-restart:hover { background: #f0ede6; color: #1c1c1c; }
 
-  .btn-restart {
-    width: 100%;
-    padding: 13px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.15s;
-    margin-bottom: 14px;
-  }
-  .btn-restart:hover { background: var(--border); color: var(--text); }
-
-  .disclaimer {
-    font-size: 11px;
-    color: var(--text-muted);
-    text-align: center;
-    line-height: 1.6;
-    max-width: 640px;
-    margin-top: 10px;
-  }
-
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+@keyframes blink  { 0%,100%{opacity:1} 50%{opacity:0} }
 </style>
 </head>
 <body>
+<div class="page">
 
-<div class="header">
-  <div class="header-badge">❤️ Sănătate cardiovasculară</div>
-  <h1>Calculator de Risc <em>Cardiovascular</em></h1>
-  <p class="subtitle">Răspunde la 12 întrebări și primești o evaluare personalizată + recomandări generate de AI, bazate pe profilul tău de risc.</p>
-</div>
-
-<div class="progress-wrap" id="progress-wrap">
-  <div class="progress-meta">
-    <span id="prog-label">Întrebarea 1 din 12</span>
-    <span id="prog-pct">0%</span>
+  <!-- Header -->
+  <div style="text-align:center; margin-bottom:36px;">
+    <div class="badge">&#10084;&#65039; Sanatate cardiovasculara</div>
+    <h1 class="main-title">Calculator de Risc <em>Cardiovascular</em></h1>
+    <p class="subtitle">Raspunde la 12 intrebari si primesti o evaluare personalizata + recomandari generate de AI, bazate pe profilul tau de risc.</p>
   </div>
-  <div class="progress-track">
-    <div class="progress-fill" id="prog-fill"></div>
-  </div>
-</div>
 
-<div class="card" id="quiz-card">
-  <div class="q-header">
-    <span class="q-num" id="q-num">01 / 12</span>
-    <span class="q-icon" id="q-icon">🎂</span>
+  <!-- Progress -->
+  <div class="prog-wrap" id="prog-wrap">
+    <div class="prog-meta">
+      <span id="prog-label">Intrebarea 1 din 12</span>
+      <span id="prog-pct">0%</span>
+    </div>
+    <div class="prog-track">
+      <div class="prog-fill" id="prog-fill"></div>
+    </div>
   </div>
-  <div class="q-text" id="q-text">Care este grupa dumneavoastră de vârstă?</div>
-  <div class="options" id="q-options"></div>
-  <div class="nav-buttons">
-    <button class="btn btn-back" id="btn-back" onclick="goBack()" style="visibility:hidden">← Înapoi</button>
-    <button class="btn btn-next" id="btn-next" onclick="goNext()" disabled>Continuă →</button>
-    <button class="btn btn-submit hidden" id="btn-submit" onclick="submitQuiz()" disabled>Calculează riscul →</button>
+
+  <!-- Quiz -->
+  <div class="card" id="quiz-card">
+    <div class="q-header">
+      <span class="q-num" id="q-num">01 / 12</span>
+      <span class="q-emoji" id="q-emoji"></span>
+    </div>
+    <h2 class="q-text" id="q-text"></h2>
+    <div class="options" id="q-options"></div>
+    <div class="nav">
+      <button class="btn btn-back" id="btn-back" onclick="goBack()">&#8592; Inapoi</button>
+      <button class="btn btn-next" id="btn-next" onclick="goNext()" disabled>Continua &#8594;</button>
+      <button class="btn btn-submit hidden" id="btn-submit" onclick="submitQuiz()" disabled>Calculeaza riscul &#8594;</button>
+    </div>
   </div>
-</div>
 
-<p class="disclaimer" id="disc-quiz">⚠️ Scop educațional și informativ — nu înlocuiește consultul medical.</p>
+  <p class="disc" id="disc-quiz">&#9888;&#65039; Scop educational si informativ &mdash; nu inlocuieste consultul medical.</p>
 
-<div class="results-wrap hidden" id="results-wrap">
-  <div class="score-card">
-    <div class="score-ring">
-      <svg width="150" height="150" viewBox="0 0 150 150">
-        <circle cx="75" cy="75" r="62" fill="none" stroke="#e2e0d8" stroke-width="11"/>
-        <circle id="ring-circle" cx="75" cy="75" r="62" fill="none" stroke-width="11"
-          stroke-linecap="round" stroke-dasharray="390" stroke-dashoffset="390"
-          style="transition: stroke-dashoffset 1.2s ease, stroke 0.3s"/>
-      </svg>
-      <div class="score-center">
-        <div class="score-num" id="score-num">0%</div>
-        <div class="score-lbl">Scor risc</div>
+  <!-- Results (hidden initially) -->
+  <div id="results" class="hidden">
+
+    <div class="score-card">
+      <div class="ring-wrap">
+        <svg width="150" height="150" viewBox="0 0 150 150">
+          <circle cx="75" cy="75" r="62" fill="none" stroke="#ede9e0" stroke-width="11"/>
+          <circle id="ring-c" cx="75" cy="75" r="62" fill="none" stroke-width="11"
+            stroke-linecap="round" stroke-dasharray="390" stroke-dashoffset="390"
+            style="transition: stroke-dashoffset 1.2s ease, stroke 0.3s;"/>
+        </svg>
+        <div class="ring-center">
+          <div class="ring-num" id="ring-num">0%</div>
+          <div class="ring-lbl">Scor risc</div>
+        </div>
       </div>
+      <div class="risk-pill" id="risk-pill">-</div>
     </div>
-    <div class="risk-pill" id="risk-pill"></div>
-  </div>
 
-  <div class="breakdown-card">
-    <div class="section-title">Contribuția factorilor de risc</div>
-    <div id="factor-bars"></div>
-  </div>
-
-  <div class="ai-card">
-    <div class="ai-header">
-      <div class="ai-dot" id="ai-dot"></div>
-      <div class="ai-title">Recomandări personalizate generate de AI</div>
+    <div class="brk-card">
+      <div class="sec-title">Contributia factorilor de risc</div>
+      <div id="factor-bars"></div>
     </div>
-    <div class="ai-body loading" id="ai-body">Se analizează profilul tău cardiovascular... <span class="cursor"></span></div>
-  </div>
 
-  <button class="btn-restart" onclick="restartQuiz()">↺ Completează din nou</button>
-  <p class="disclaimer">⚠️ Acest calculator are scop informativ și educațional. Nu înlocuiește consultul medical. Consultați întotdeauna un medic pentru evaluarea riscului cardiovascular.</p>
-</div>
+    <div class="ai-card">
+      <div class="ai-hdr">
+        <div class="ai-dot" id="ai-dot"></div>
+        <div class="ai-title">Recomandari personalizate generate de AI</div>
+      </div>
+      <div class="ai-body loading" id="ai-body">Se analizeaza profilul tau... <span class="cursor"></span></div>
+    </div>
+
+    <button class="btn-restart" onclick="restartQuiz()">&#8635; Completeaza din nou</button>
+    <p class="disc">&#9888;&#65039; Scop informativ si educational. Nu inlocuieste consultul medical. Consultati un medic pentru evaluarea riscului cardiovascular.</p>
+
+  </div><!-- /results -->
+
+</div><!-- /page -->
 
 <script>
-var WORKER_URL = "cardiac-proxy.ruxandra-boghian.workers.dev
-";
+var WORKER_URL = "https://cardiac-proxy.ruxandra-boghian.workers.dev/";
 
-var questions = [
-  { id:"varsta", icon:"🎂", text:"Care este grupa dumneavoastră de vârstă?",
-    options:[
-      {label:"Sub 35 de ani", score:0, risk:"low"},
-      {label:"35–44 de ani", score:1, risk:"low"},
-      {label:"45–54 de ani", score:2, risk:"mod"},
-      {label:"55–64 de ani", score:3, risk:"mod"},
-      {label:"65 de ani sau mai mult", score:4, risk:"high"}
+var QS = [
+  { id:"varsta", icon:"🎂",
+    text:"Care este grupa dumneavoastra de varsta?",
+    opts:[
+      {t:"Sub 35 de ani", s:0, r:"low"},
+      {t:"35-44 de ani", s:1, r:"low"},
+      {t:"45-54 de ani", s:2, r:"mod"},
+      {t:"55-64 de ani", s:3, r:"mod"},
+      {t:"65 de ani sau mai mult", s:4, r:"high"}
     ]},
-  { id:"tensiune", icon:"💓", text:"Care este tensiunea arterială sistolică (valoarea mare)?",
-    options:[
-      {label:"Sub 120 mmHg — optimă", score:0, risk:"low"},
-      {label:"120–129 mmHg — normală", score:1, risk:"low"},
-      {label:"130–139 mmHg — normal-înaltă", score:2, risk:"mod"},
-      {label:"140–159 mmHg — hipertensiune grad I", score:3, risk:"mod"},
-      {label:"160 mmHg sau mai mult — hipertensiune grad II+", score:4, risk:"high"}
+  { id:"tensiune", icon:"💓",
+    text:"Care este tensiunea arteriala sistolica (valoarea mare)?",
+    opts:[
+      {t:"Sub 120 mmHg — optima", s:0, r:"low"},
+      {t:"120-129 mmHg — normala", s:1, r:"low"},
+      {t:"130-139 mmHg — normal-inalta", s:2, r:"mod"},
+      {t:"140-159 mmHg — hipertensiune grad I", s:3, r:"mod"},
+      {t:"160 mmHg sau mai mult — hipertensiune grad II+", s:4, r:"high"}
     ]},
-  { id:"colesterol", icon:"🩸", text:"Cum se prezintă colesterolul LDL (colesterol «rău»)?",
-    options:[
-      {label:"Sub 100 mg/dL — optim", score:0, risk:"low"},
-      {label:"100–129 mg/dL — aproape optim", score:1, risk:"low"},
-      {label:"130–159 mg/dL — limita superioară a normalului", score:2, risk:"mod"},
-      {label:"160–189 mg/dL — ridicat", score:3, risk:"mod"},
-      {label:"190 mg/dL sau mai mult — foarte ridicat", score:4, risk:"high"}
+  { id:"colesterol", icon:"🩸",
+    text:"Cum se prezinta colesterolul LDL (colesterol 'rau')?",
+    opts:[
+      {t:"Sub 100 mg/dL — optim", s:0, r:"low"},
+      {t:"100-129 mg/dL — aproape optim", s:1, r:"low"},
+      {t:"130-159 mg/dL — limita superioara a normalului", s:2, r:"mod"},
+      {t:"160-189 mg/dL — ridicat", s:3, r:"mod"},
+      {t:"190 mg/dL sau mai mult — foarte ridicat", s:4, r:"high"}
     ]},
-  { id:"fumat", icon:"🚬", text:"Care este statutul dumneavoastră în privința fumatului?",
-    options:[
-      {label:"Nu am fumat niciodată", score:0, risk:"low"},
-      {label:"Fost fumător (am renunțat de mai mult de 5 ani)", score:1, risk:"low"},
-      {label:"Fost fumător (am renunțat de 1–5 ani)", score:2, risk:"mod"},
-      {label:"Fumător ocazional (sub 5 țigări/zi)", score:3, risk:"mod"},
-      {label:"Fumător activ (5 sau mai multe țigări/zi)", score:4, risk:"high"}
+  { id:"fumat", icon:"🚬",
+    text:"Care este statutul dumneavoastra in privinta fumatului?",
+    opts:[
+      {t:"Nu am fumat niciodata", s:0, r:"low"},
+      {t:"Fost fumator (am renuntat de mai mult de 5 ani)", s:1, r:"low"},
+      {t:"Fost fumator (am renuntat de 1-5 ani)", s:2, r:"mod"},
+      {t:"Fumator ocazional (sub 5 tigari/zi)", s:3, r:"mod"},
+      {t:"Fumator activ (5 sau mai multe tigari/zi)", s:4, r:"high"}
     ]},
-  { id:"diabet", icon:"🍬", text:"Cum este glicemia sau situația diabetului?",
-    options:[
-      {label:"Normală (sub 100 mg/dL à jeun)", score:0, risk:"low"},
-      {label:"Prediabet controlat prin dietă", score:2, risk:"mod"},
-      {label:"Diabet de tip 2 controlat medicamentos", score:3, risk:"mod"},
-      {label:"Diabet de tip 1 sau tip 2 necontrolat", score:4, risk:"high"}
+  { id:"diabet", icon:"🍬",
+    text:"Cum este glicemia sau situatia diabetului?",
+    opts:[
+      {t:"Normala (sub 100 mg/dL a jeun)", s:0, r:"low"},
+      {t:"Prediabet controlat prin dieta", s:2, r:"mod"},
+      {t:"Diabet de tip 2 controlat medicamentos", s:3, r:"mod"},
+      {t:"Diabet de tip 1 sau tip 2 necontrolat", s:4, r:"high"}
     ]},
-  { id:"imc", icon:"⚖️", text:"Care este indicele de masă corporală (IMC)?",
-    options:[
-      {label:"Sub 18,5 — subponderal", score:1, risk:"mod"},
-      {label:"18,5–24,9 — greutate normală", score:0, risk:"low"},
-      {label:"25–29,9 — supraponderal", score:2, risk:"mod"},
-      {label:"30–34,9 — obezitate grad I", score:3, risk:"mod"},
-      {label:"35 sau mai mult — obezitate grad II/III", score:4, risk:"high"}
+  { id:"imc", icon:"⚖️",
+    text:"Care este indicele de masa corporala (IMC)?",
+    opts:[
+      {t:"Sub 18,5 — subponderal", s:1, r:"mod"},
+      {t:"18,5-24,9 — greutate normala", s:0, r:"low"},
+      {t:"25-29,9 — supraponderal", s:2, r:"mod"},
+      {t:"30-34,9 — obezitate grad I", s:3, r:"mod"},
+      {t:"35 sau mai mult — obezitate grad II/III", s:4, r:"high"}
     ]},
-  { id:"activitate", icon:"🏃", text:"Cât de activă este viața dumneavoastră fizic?",
-    options:[
-      {label:"Exerciții moderate-intense, 5+ zile/săptămână (≥150 min)", score:0, risk:"low"},
-      {label:"Exerciții moderate, 3–4 zile/săptămână", score:1, risk:"low"},
-      {label:"Activitate fizică ușoară, 1–2 zile/săptămână", score:2, risk:"mod"},
-      {label:"Activitate fizică rară (mai puțin de 1 zi/săptămână)", score:3, risk:"mod"},
-      {label:"Stil de viață sedentar", score:4, risk:"high"}
+  { id:"activitate", icon:"🏃",
+    text:"Cat de activa este viata dumneavoastra fizic?",
+    opts:[
+      {t:"Exercitii moderate-intense, 5+ zile/saptamana (150+ min)", s:0, r:"low"},
+      {t:"Exercitii moderate, 3-4 zile/saptamana", s:1, r:"low"},
+      {t:"Activitate fizica usoara, 1-2 zile/saptamana", s:2, r:"mod"},
+      {t:"Activitate fizica rara (sub 1 zi/saptamana)", s:3, r:"mod"},
+      {t:"Stil de viata sedentar", s:4, r:"high"}
     ]},
-  { id:"stres", icon:"🧠", text:"Cum evaluați nivelul de stres în viața dumneavoastră?",
-    options:[
-      {label:"Scăzut — mă simt în general relaxat/ă", score:0, risk:"low"},
-      {label:"Moderat — stres gestionabil, ocazional", score:1, risk:"low"},
-      {label:"Ridicat — stres frecvent, greu de gestionat", score:3, risk:"mod"},
-      {label:"Extrem — burnout, anxietate cronică", score:4, risk:"high"}
+  { id:"stres", icon:"🧠",
+    text:"Cum evaluati nivelul de stres in viata dumneavoastra?",
+    opts:[
+      {t:"Scazut — ma simt in general relaxat/a", s:0, r:"low"},
+      {t:"Moderat — stres gestionabil, ocazional", s:1, r:"low"},
+      {t:"Ridicat — stres frecvent, greu de gestionat", s:3, r:"mod"},
+      {t:"Extrem — burnout, anxietate cronica", s:4, r:"high"}
     ]},
-  { id:"antecedente", icon:"🧬", text:"Există boli cardiovasculare în familia dumneavoastră de origine?",
-    options:[
-      {label:"Nu — fără antecedente familiale cardiovasculare", score:0, risk:"low"},
-      {label:"Rude îndepărtate (bunici, unchi/mătușă)", score:1, risk:"low"},
-      {label:"Rudă de gradul I cu boală cardiacă după 60 de ani", score:2, risk:"mod"},
-      {label:"Rudă de gradul I cu boală cardiacă înainte de 60 de ani", score:3, risk:"mod"},
-      {label:"Mai mulți membri ai familiei, infarct înainte de 50 de ani", score:4, risk:"high"}
+  { id:"antecedente", icon:"🧬",
+    text:"Exista boli cardiovasculare in familia dumneavoastra de origine?",
+    opts:[
+      {t:"Nu — fara antecedente familiale cardiovasculare", s:0, r:"low"},
+      {t:"Rude indepartate (bunici, unchi/matusa)", s:1, r:"low"},
+      {t:"Ruda de gradul I cu boala cardiaca dupa 60 de ani", s:2, r:"mod"},
+      {t:"Ruda de gradul I cu boala cardiaca inainte de 60 de ani", s:3, r:"mod"},
+      {t:"Mai multi membri ai familiei, infarct inainte de 50 de ani", s:4, r:"high"}
     ]},
-  { id:"dieta", icon:"🥗", text:"Cum este dieta dumneavoastră în mod obișnuit?",
-    options:[
-      {label:"Echilibrată — mediteraneană, multe legume, pește, ulei de măsline", score:0, risk:"low"},
-      {label:"Relativ sănătoasă — cu câteva excese ocazionale", score:1, risk:"low"},
-      {label:"Mixtă — mâncare procesată câteva zile pe săptămână", score:2, risk:"mod"},
-      {label:"Predominant procesată — fast food, grăsimi saturate, zahăr", score:3, risk:"mod"},
-      {label:"Nesănătoasă — alimente ultra-procesate zilnic, puține legume", score:4, risk:"high"}
+  { id:"dieta", icon:"🥗",
+    text:"Cum este dieta dumneavoastra in mod obisnuit?",
+    opts:[
+      {t:"Echilibrata — mediteraneana, legume, peste, ulei de masline", s:0, r:"low"},
+      {t:"Relativ sanatoasa — cu cateva excese ocazionale", s:1, r:"low"},
+      {t:"Mixta — mancare procesata cateva zile pe saptamana", s:2, r:"mod"},
+      {t:"Predominant procesata — fast food, grasimi saturate, zahar", s:3, r:"mod"},
+      {t:"Nesanatoasa — alimente ultra-procesate zilnic, putine legume", s:4, r:"high"}
     ]},
-  { id:"somn", icon:"😴", text:"Câte ore dormiți în medie pe noapte și cât de odihnitor este somnul?",
-    options:[
-      {label:"7–9 ore, somn odihnitor", score:0, risk:"low"},
-      {label:"6–7 ore sau 9–10 ore, calitate bună", score:1, risk:"low"},
-      {label:"5–6 ore sau somn frecvent întrerupt", score:2, risk:"mod"},
-      {label:"Sub 5 ore sau peste 10 ore, calitate slabă", score:3, risk:"high"},
-      {label:"Insomnie cronică sau apnee de somn diagnosticată", score:4, risk:"high"}
+  { id:"somn", icon:"😴",
+    text:"Cate ore dormiti in medie pe noapte si cat de odihnitor este somnul?",
+    opts:[
+      {t:"7-9 ore, somn odihnitor", s:0, r:"low"},
+      {t:"6-7 ore sau 9-10 ore, calitate buna", s:1, r:"low"},
+      {t:"5-6 ore sau somn frecvent intrerupt", s:2, r:"mod"},
+      {t:"Sub 5 ore sau peste 10 ore, calitate slaba", s:3, r:"high"},
+      {t:"Insomnie cronica sau apnee de somn diagnosticata", s:4, r:"high"}
     ]},
-  { id:"sex", icon:"👤", text:"Care este sexul biologic? (relevant pentru calculul riscului cardiovascular)",
-    options:[
-      {label:"Feminin (sub 55 de ani — efect protector estrogen)", score:0, risk:"low"},
-      {label:"Feminin (55 de ani sau mai mult — post-menopauză)", score:2, risk:"mod"},
-      {label:"Masculin (sub 45 de ani)", score:1, risk:"low"},
-      {label:"Masculin (45 de ani sau mai mult)", score:3, risk:"mod"}
+  { id:"sex", icon:"👤",
+    text:"Care este sexul biologic? (relevant pentru calculul riscului cardiovascular)",
+    opts:[
+      {t:"Feminin (sub 55 de ani — efect protector estrogen)", s:0, r:"low"},
+      {t:"Feminin (55 de ani sau mai mult — post-menopauza)", s:2, r:"mod"},
+      {t:"Masculin (sub 45 de ani)", s:1, r:"low"},
+      {t:"Masculin (45 de ani sau mai mult)", s:3, r:"mod"}
     ]}
 ];
 
-var factorLabels = {
-  varsta:"Vârstă", tensiune:"Tensiune arterială", colesterol:"Colesterol LDL",
-  fumat:"Fumat", diabet:"Diabet / Glicemie", imc:"IMC",
-  activitate:"Activitate fizică", stres:"Stres", antecedente:"Antecedente familiale",
-  dieta:"Dietă", somn:"Somn", sex:"Sex biologic"
+var LABELS = {
+  varsta:"Varsta", tensiune:"Tensiune arteriala", colesterol:"Colesterol LDL",
+  fumat:"Fumat", diabet:"Diabet/Glicemie", imc:"IMC",
+  activitate:"Activitate fizica", stres:"Stres", antecedente:"Antecedente familiale",
+  dieta:"Dieta", somn:"Somn", sex:"Sex biologic"
 };
 
-var current = 0;
-var answers = {};
+var cur = 0;
+var ans = {};
+
+function pad(n) { return n < 10 ? "0"+n : ""+n; }
 
 function render() {
-  var q = questions[current];
-  var total = questions.length;
+  var q = QS[cur];
+  var total = QS.length;
 
-  document.getElementById('q-num').textContent = pad(current+1) + ' / ' + pad(total);
-  document.getElementById('q-icon').textContent = q.icon;
-  document.getElementById('q-text').textContent = q.text;
+  document.getElementById("q-num").textContent = pad(cur+1) + " / " + pad(total);
+  document.getElementById("q-emoji").textContent = q.icon;
+  document.getElementById("q-text").textContent = q.text;
 
-  var container = document.getElementById('q-options');
-  container.innerHTML = '';
+  // Build options
+  var cont = document.getElementById("q-options");
+  cont.innerHTML = "";
 
-  for (var i = 0; i < q.options.length; i++) {
+  for (var i = 0; i < q.opts.length; i++) {
     (function(idx) {
-      var opt = q.options[idx];
-      var btn = document.createElement('button');
-      btn.className = 'option' + (answers[current] === idx ? ' selected' : '');
+      var o = q.opts[idx];
 
-      var riskText = opt.risk === 'low' ? 'Scăzut' : opt.risk === 'mod' ? 'Moderat' : 'Ridicat';
-      var riskClass = 'risk-' + opt.risk;
+      var btn = document.createElement("button");
+      btn.className = "opt" + (ans[cur] === idx ? " sel" : "");
 
-      var radio = document.createElement('div');
-      radio.className = 'option-radio';
+      // Radio circle
+      var radio = document.createElement("div");
+      radio.className = "radio";
+      var dot = document.createElement("div");
+      dot.className = "radio-dot";
+      radio.appendChild(dot);
 
-      var lbl = document.createElement('span');
-      lbl.className = 'option-label';
-      lbl.textContent = opt.label;
+      // Label
+      var lbl = document.createElement("span");
+      lbl.className = "opt-label";
+      lbl.textContent = o.t;
 
-      var badge = document.createElement('span');
-      badge.className = 'option-risk ' + riskClass;
-      badge.textContent = riskText;
+      // Risk badge
+      var badge = document.createElement("span");
+      badge.className = "opt-badge " + (o.r === "low" ? "bl" : o.r === "mod" ? "bm" : "bh");
+      badge.textContent = o.r === "low" ? "Scazut" : o.r === "mod" ? "Moderat" : "Ridicat";
 
       btn.appendChild(radio);
       btn.appendChild(lbl);
       btn.appendChild(badge);
 
-      btn.onclick = function() { pick(idx); };
-      container.appendChild(btn);
+      btn.onclick = function() { pickOpt(idx); };
+      cont.appendChild(btn);
     })(i);
   }
 
-  // Progress
-  var pct = Math.round((current / total) * 100);
-  document.getElementById('prog-fill').style.width = pct + '%';
-  document.getElementById('prog-label').textContent = 'Întrebarea ' + (current+1) + ' din ' + total;
-  document.getElementById('prog-pct').textContent = pct + '%';
+  // Progress bar
+  var pct = Math.round((cur / total) * 100);
+  document.getElementById("prog-fill").style.width = pct + "%";
+  document.getElementById("prog-label").textContent = "Intrebarea " + (cur+1) + " din " + total;
+  document.getElementById("prog-pct").textContent = pct + "%";
 
-  // Button visibility
-  var isLast = current === total - 1;
-  var hasAnswer = answers[current] !== undefined;
+  // Back button
+  document.getElementById("btn-back").style.visibility = cur === 0 ? "hidden" : "visible";
 
-  document.getElementById('btn-back').style.visibility = current === 0 ? 'hidden' : 'visible';
-
-  var btnNext = document.getElementById('btn-next');
-  var btnSubmit = document.getElementById('btn-submit');
+  // Next / Submit
+  var isLast = cur === total - 1;
+  var hasAns = (ans[cur] !== undefined);
 
   if (isLast) {
-    btnNext.classList.add('hidden');
-    btnSubmit.classList.remove('hidden');
+    document.getElementById("btn-next").className = "btn btn-next hidden";
+    document.getElementById("btn-submit").className = "btn btn-submit";
   } else {
-    btnNext.classList.remove('hidden');
-    btnSubmit.classList.add('hidden');
+    document.getElementById("btn-next").className = "btn btn-next";
+    document.getElementById("btn-submit").className = "btn btn-submit hidden";
   }
-
-  btnNext.disabled = !hasAnswer;
-  btnSubmit.disabled = !hasAnswer;
+  document.getElementById("btn-next").disabled = !hasAns;
+  document.getElementById("btn-submit").disabled = !hasAns;
 }
 
-function pad(n) {
-  return n < 10 ? '0' + n : '' + n;
-}
-
-function pick(i) {
-  answers[current] = i;
+function pickOpt(idx) {
+  ans[cur] = idx;
   render();
 }
 
 function goNext() {
-  if (answers[current] === undefined) return;
-  if (current < questions.length - 1) { current++; render(); }
+  if (ans[cur] === undefined) return;
+  if (cur < QS.length - 1) { cur++; render(); }
 }
 
 function goBack() {
-  if (current > 0) { current--; render(); }
+  if (cur > 0) { cur--; render(); }
 }
 
 function submitQuiz() {
-  if (answers[current] === undefined) return;
+  if (ans[cur] === undefined) return;
   showResults();
 }
 
 function showResults() {
-  document.getElementById('quiz-card').classList.add('hidden');
-  document.getElementById('progress-wrap').classList.add('hidden');
-  document.getElementById('disc-quiz').classList.add('hidden');
-  document.getElementById('results-wrap').classList.remove('hidden');
+  document.getElementById("quiz-card").className = "card hidden";
+  document.getElementById("prog-wrap").className = "prog-wrap hidden";
+  document.getElementById("disc-quiz").className = "disc hidden";
+  document.getElementById("results").className = "";
 
+  // Compute score
   var total = 0;
-  var factorData = [];
-  for (var i = 0; i < questions.length; i++) {
-    var q = questions[i];
-    var opt = q.options[answers[i]] || {score: 0};
-    total += opt.score;
-    factorData.push({id: q.id, icon: q.icon, score: opt.score});
+  for (var i = 0; i < QS.length; i++) {
+    var opt = QS[i].opts[ans[i]];
+    if (opt) total += opt.s;
   }
+  var maxScore = QS.length * 4;
+  var pct = Math.round((total / maxScore) * 100);
 
-  var maxPossible = questions.length * 4;
-  var pct = Math.round((total / maxPossible) * 100);
-
-  var level, pillClass, pillText, ringColor;
+  // Level
+  var level, pillClass, pillText, color;
   if (pct <= 33) {
-    level='low'; pillClass='pill-low'; pillText='💚 Risc Scăzut'; ringColor='#1e8449';
+    level = "low"; pillClass = "p-low"; pillText = "Risc Scazut"; color = "#1a7340";
   } else if (pct <= 60) {
-    level='mod'; pillClass='pill-mod'; pillText='💛 Risc Moderat'; ringColor='#b7950b';
+    level = "mod"; pillClass = "p-mod"; pillText = "Risc Moderat"; color = "#a0790a";
   } else {
-    level='high'; pillClass='pill-high'; pillText='❤️ Risc Ridicat'; ringColor='#c0392b';
+    level = "high"; pillClass = "p-high"; pillText = "Risc Ridicat"; color = "#b91c1c";
   }
 
-  // Ring animation
-  var circle = document.getElementById('ring-circle');
-  var offset = 390 - (pct / 100) * 390;
-  circle.style.stroke = ringColor;
-  setTimeout(function() { circle.style.strokeDashoffset = offset; }, 80);
+  // Ring
+  var ring = document.getElementById("ring-c");
+  ring.style.stroke = color;
+  setTimeout(function() {
+    ring.style.strokeDashoffset = 390 - (pct / 100 * 390);
+  }, 80);
 
-  // Counter animation
-  var numEl = document.getElementById('score-num');
-  numEl.style.color = ringColor;
-  var count = 0;
+  // Counter
+  var numEl = document.getElementById("ring-num");
+  numEl.style.color = color;
+  var cnt = 0;
   var iv = setInterval(function() {
-    count = Math.min(count + 2, pct);
-    numEl.textContent = count + '%';
-    if (count >= pct) clearInterval(iv);
-  }, 20);
+    cnt = Math.min(cnt + 2, pct);
+    numEl.textContent = cnt + "%";
+    if (cnt >= pct) clearInterval(iv);
+  }, 18);
 
-  // Risk pill
-  var pill = document.getElementById('risk-pill');
+  // Pill
+  var pill = document.getElementById("risk-pill");
   pill.textContent = pillText;
-  pill.className = 'risk-pill ' + pillClass;
+  pill.className = "risk-pill " + pillClass;
 
   // Factor bars
-  var barsEl = document.getElementById('factor-bars');
-  barsEl.innerHTML = '';
-  for (var j = 0; j < factorData.length; j++) {
-    var f = factorData[j];
-    var fp = Math.round((f.score / 4) * 100);
-    var color = f.score <= 1 ? '#1e8449' : f.score <= 2 ? '#b7950b' : '#c0392b';
+  var barsEl = document.getElementById("factor-bars");
+  barsEl.innerHTML = "";
+  var fills = [];
+  for (var j = 0; j < QS.length; j++) {
+    var q = QS[j];
+    var opt2 = q.opts[ans[j]] || {s:0};
+    var sc = opt2.s;
+    var fp = Math.round((sc / 4) * 100);
+    var fc = sc <= 1 ? "#1a7340" : sc <= 2 ? "#a0790a" : "#b91c1c";
 
-    var row = document.createElement('div');
-    row.className = 'factor-row';
+    var row = document.createElement("div");
+    row.className = "frow";
 
-    var nameDiv = document.createElement('div');
-    nameDiv.className = 'factor-name';
-    nameDiv.textContent = f.icon + ' ' + factorLabels[f.id];
+    var nm = document.createElement("div");
+    nm.className = "fname";
+    nm.textContent = q.icon + " " + LABELS[q.id];
 
-    var track = document.createElement('div');
-    track.className = 'factor-track';
-    var fill = document.createElement('div');
-    fill.className = 'factor-fill';
-    fill.style.background = color;
-    fill.setAttribute('data-w', fp);
-    track.appendChild(fill);
+    var tr = document.createElement("div");
+    tr.className = "ftrack";
 
-    var val = document.createElement('div');
-    val.className = 'factor-val';
-    val.style.color = color;
-    val.textContent = f.score + '/4';
+    var fl = document.createElement("div");
+    fl.className = "ffill";
+    fl.style.background = fc;
+    fl.style.width = "0%";
+    fills.push({el: fl, w: fp});
+    tr.appendChild(fl);
 
-    row.appendChild(nameDiv);
-    row.appendChild(track);
-    row.appendChild(val);
+    var vl = document.createElement("div");
+    vl.className = "fval";
+    vl.style.color = fc;
+    vl.textContent = sc + "/4";
+
+    row.appendChild(nm);
+    row.appendChild(tr);
+    row.appendChild(vl);
     barsEl.appendChild(row);
   }
 
   setTimeout(function() {
-    var fills = barsEl.querySelectorAll('.factor-fill');
     for (var k = 0; k < fills.length; k++) {
-      fills[k].style.width = fills[k].getAttribute('data-w') + '%';
+      fills[k].el.style.width = fills[k].w + "%";
     }
   }, 250);
 
-  fetchAI(pct, level, factorData);
+  // AI
+  callAI(pct, level);
 }
 
-function fetchAI(pct, level, factorData) {
-  var bodyEl = document.getElementById('ai-body');
-  var dotEl = document.getElementById('ai-dot');
+function callAI(pct, level) {
+  var bodyEl = document.getElementById("ai-body");
+  var dotEl = document.getElementById("ai-dot");
 
-  var levelRo = level === 'low' ? 'SCĂZUT' : level === 'mod' ? 'MODERAT' : 'RIDICAT';
+  var levelRo = level === "low" ? "SCAZUT" : level === "mod" ? "MODERAT" : "RIDICAT";
 
   var highFactors = [];
-  for (var i = 0; i < factorData.length; i++) {
-    if (factorData[i].score >= 3) highFactors.push(factorLabels[factorData[i].id]);
-  }
-  var highStr = highFactors.length > 0 ? highFactors.join(', ') : 'niciunul';
-
-  var summary = '';
-  for (var j = 0; j < questions.length; j++) {
-    var opt = questions[j].options[answers[j]];
-    summary += '- ' + factorLabels[questions[j].id] + ': ' + (opt ? opt.label : 'N/A') + '\n';
+  for (var i = 0; i < QS.length; i++) {
+    var opt = QS[i].opts[ans[i]];
+    if (opt && opt.s >= 3) highFactors.push(LABELS[QS[i].id]);
   }
 
-  var prompt = 'Ești un cardiolog consultant român. Un pacient a completat un chestionar de evaluare a riscului cardiovascular.\n\nSCOR TOTAL: ' + pct + '% — Nivel de risc: ' + levelRo + '\nFactori cu risc ridicat: ' + highStr + '\n\nRĂSPUNSURILE PACIENTULUI:\n' + summary + '\nGenerează recomandări medicale personalizate, practice și empatice, structurate astfel:\n1. Evaluare scurtă a profilului (2-3 propoziții)\n2. Top 3-5 recomandări prioritare, specifice răspunsurilor\n3. Modificări de stil de viață concrete\n4. Consultații medicale recomandate\n5. Mesaj motivațional final\n\nScrie în română, clar și accesibil, fără jargon medical excesiv.';
+  var summary = "";
+  for (var j = 0; j < QS.length; j++) {
+    var opt2 = QS[j].opts[ans[j]];
+    summary += "- " + LABELS[QS[j].id] + ": " + (opt2 ? opt2.t : "N/A") + "\n";
+  }
 
-  bodyEl.className = 'ai-body loading';
-  bodyEl.innerHTML = 'Se analizează profilul tău cardiovascular... <span class="cursor"></span>';
+  var prompt = "Esti un cardiolog consultant roman. Un pacient a completat un chestionar de risc cardiovascular.\n\n"
+    + "SCOR TOTAL: " + pct + "% - Nivel de risc: " + levelRo + "\n"
+    + "Factori cu risc ridicat: " + (highFactors.length > 0 ? highFactors.join(", ") : "niciunul") + "\n\n"
+    + "RASPUNSURILE PACIENTULUI:\n" + summary + "\n"
+    + "Genereaza recomandari medicale personalizate, practice si empatice:\n"
+    + "1. Evaluare scurta a profilului (2-3 propozitii)\n"
+    + "2. Top 3-5 recomandari prioritare, specifice raspunsurilor\n"
+    + "3. Modificari de stil de viata concrete\n"
+    + "4. Consultatii medicale recomandate\n"
+    + "5. Mesaj motivational final\n\n"
+    + "Scrie in romana, clar si accesibil.";
+
+  bodyEl.className = "ai-body loading";
+  bodyEl.innerHTML = "Se analizeaza profilul tau cardiovascular... <span class='cursor'></span>";
 
   fetch(WORKER_URL, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
+      model: "claude-sonnet-4-20250514",
       max_tokens: 1200,
       stream: true,
-      messages: [{role: 'user', content: prompt}]
+      messages: [{role: "user", content: prompt}]
     })
   }).then(function(resp) {
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    if (!resp.ok) throw new Error("HTTP " + resp.status);
 
-    bodyEl.className = 'ai-body';
-    bodyEl.innerHTML = '';
+    bodyEl.className = "ai-body";
+    bodyEl.innerHTML = "";
 
     var reader = resp.body.getReader();
     var decoder = new TextDecoder();
-    var buf = '';
+    var buf = "";
 
-    function read() {
+    function pump() {
       reader.read().then(function(result) {
-        if (result.done) {
-          dotEl.className = 'ai-dot done';
-          return;
-        }
+        if (result.done) { dotEl.className = "ai-dot done"; return; }
         buf += decoder.decode(result.value, {stream: true});
-        var lines = buf.split('\n');
+        var lines = buf.split("\n");
         buf = lines.pop();
         for (var i = 0; i < lines.length; i++) {
           var line = lines[i];
-          if (line.indexOf('data: ') !== 0) continue;
+          if (line.indexOf("data: ") !== 0) continue;
           var d = line.slice(6).trim();
-          if (d === '[DONE]') continue;
+          if (d === "[DONE]") continue;
           try {
             var j = JSON.parse(d);
-            var text = (j.delta && j.delta.text) || '';
-            if (!text && j.choices && j.choices[0] && j.choices[0].delta) {
-              text = j.choices[0].delta.content || '';
-            }
-            if (text) {
-              bodyEl.innerHTML += text.replace(/\n/g, '<br>');
-            }
+            var txt = "";
+            if (j.delta && j.delta.text) txt = j.delta.text;
+            else if (j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content)
+              txt = j.choices[0].delta.content;
+            if (txt) bodyEl.innerHTML += txt.replace(/\n/g, "<br>");
           } catch(e) {}
         }
-        read();
+        pump();
       });
     }
-    read();
+    pump();
 
   }).catch(function(err) {
-    dotEl.className = 'ai-dot done';
-    bodyEl.className = 'ai-body';
-    bodyEl.innerHTML = '<strong>⚠️ Recomandările AI nu sunt disponibile momentan.</strong><br><br>Verificați că URL-ul Cloudflare Worker este configurat corect (înlocuiți <code>WORKER_URL_AICI</code> din fișierul HTML).<br><br><em>Eroare: ' + err.message + '</em>';
+    dotEl.className = "ai-dot done";
+    bodyEl.className = "ai-body";
+    bodyEl.innerHTML = "<strong>Recomandările AI nu sunt disponibile.</strong><br><br>"
+      + "Verificati ca URL-ul Cloudflare Worker este configurat corect.<br>"
+      + "<em>Eroare: " + err.message + "</em>";
   });
 }
 
 function restartQuiz() {
-  current = 0;
-  answers = {};
-  document.getElementById('results-wrap').classList.add('hidden');
-  document.getElementById('quiz-card').classList.remove('hidden');
-  document.getElementById('progress-wrap').classList.remove('hidden');
-  document.getElementById('disc-quiz').classList.remove('hidden');
+  cur = 0;
+  ans = {};
+  document.getElementById("results").className = "hidden";
+  document.getElementById("quiz-card").className = "card";
+  document.getElementById("prog-wrap").className = "prog-wrap";
+  document.getElementById("disc-quiz").className = "disc";
   render();
 }
 
-// Pornire
+// START
 render();
 </script>
 </body>
